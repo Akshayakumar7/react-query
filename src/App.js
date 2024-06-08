@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { EmployeeData } from "./APICall/getEmployeeData";
+import EmployeeCard from "./components/CardComponents/EmployeeCard";
 
 function App() {
+  const { data, isLoading, error, isError, isSuccess } = EmployeeData();
+
+  console.log("error", error);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!isLoading ? (
+        <div>
+          {data?.data?.data?.length > 0 ? (
+            data?.data?.data?.map((item, index) => (
+              <EmployeeCard key={item?.email} data={item} />
+            ))
+          ) : (
+            <div>Currently no data available</div>
+          )}
+        </div>
+      ) : (
+        <div>Data is Loading....</div>
+      )}
     </div>
   );
 }
