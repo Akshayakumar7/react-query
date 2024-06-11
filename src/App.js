@@ -1,12 +1,10 @@
-import logo from "./logo.svg";
-import "./App.css";
 import { EmployeeData } from "./APICall/getEmployeeData";
+import "./App.css";
 import EmployeeCard from "./components/CardComponents/EmployeeCard";
 
 function App() {
-  const { data, isLoading, error, isError, isSuccess } = EmployeeData();
+  const { data, isLoading, error, isError } = EmployeeData();
 
-  console.log("error", error);
   return (
     <div className="App">
       {!isLoading ? (
@@ -16,12 +14,13 @@ function App() {
               <EmployeeCard key={item?.email} data={item} />
             ))
           ) : (
-            <div>Currently no data available</div>
+            <div>{!isError && <div>Currently no data available</div>}</div>
           )}
         </div>
       ) : (
         <div>Data is Loading....</div>
       )}
+      {isError && <div>{error?.message + "...!!!"} </div>}
     </div>
   );
 }

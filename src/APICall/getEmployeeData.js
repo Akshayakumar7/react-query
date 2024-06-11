@@ -3,7 +3,7 @@ import axios from "axios";
 
 const getEmployeeData = async () => {
   const data = await axios.get(
-    "https://reqres.in/api/users?page=1"
+    "https://reqre.in/api/users?page=1"
   );
   return data;
 };
